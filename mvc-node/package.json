@@ -1,0 +1,24 @@
+{
+  "name": "mvc-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victorizbitskiy/mvc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/victorizbitskiy/mvc/issues"
+  },
+  "homepage": "https://github.com/victorizbitskiy/mvc#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "hbs": "^4.2.0",
+    "nodemon": "^2.0.20"
+  }
+}
