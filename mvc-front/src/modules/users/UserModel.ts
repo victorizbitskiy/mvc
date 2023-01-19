@@ -1,5 +1,4 @@
 import { delay } from "../../helpers";
-
 export interface User {
   id: string
   username: string
@@ -10,7 +9,7 @@ export interface User {
 export type SortOrder = 'asc' | 'desc'
 export type SortField = 'age' | 'username'
 
-export class UserModel {
+export class UsersModel {
   users: User[]
   searchValue: string
   sortOrder: SortOrder
