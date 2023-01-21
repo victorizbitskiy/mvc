@@ -22,4 +22,8 @@ export class UsersController {
     }
     return this.model.sortUsers(field, order)
   }
+
+  public get users() {
+    return this.model.users
+  }
 }

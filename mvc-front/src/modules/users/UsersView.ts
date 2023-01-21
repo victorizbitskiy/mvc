@@ -20,15 +20,15 @@ export class UserView {
   constructor(root: HTMLElement, controller: UsersController) {
     this.root = root
     this.controller = controller
+  
+    this.createUserForm()
+    this.createSortSelectors()
+    this.createUsersList()
 
-    // this.createUserForm()
-    // this.createSortSelectors()
-    // this.createUserList()
-
-    // this.bindListeners()
+    this.bindListeners()
   }
 
-  private onCreate = () => {
+  private onCreateClick = () => {
     try {
       const newUser = this.controller.handleCreate(this.usernameInput.value, Number(this.ageInput.value))
       this.renderNewUser(newUser)      
@@ -75,5 +75,61 @@ export class UserView {
     this.users.innerHTML = usersElement.join('')
   }
 
-  
+  private createUsersList() {
+    this.users = document.createElement('div')
+  }
+
+  private createSortSelectors(){
+    this.sortSelectors = document.createElement('div')
+
+    this.fieldSelect = document.createElement('select')
+    const usernameOption = document.createElement('option')
+    usernameOption.value = 'username'
+    usernameOption.innerText = 'Имя пользователя'
+    const ageOption = document.createElement('option')
+    ageOption.value = 'age'
+    ageOption.innerHTML = 'Возраст'
+
+    this.fieldSelect.add(usernameOption)
+    this.fieldSelect.add(ageOption)
+
+    this.orderSelect = document.createElement('select')
+    const ascOption = document.createElement('option')
+    ascOption.value = 'desc'
+    ascOption.innerText = 'По возрастанию'
+    const descOption = document.createElement('option')
+    descOption.value = 'desc'
+    descOption.innerText = 'По убыванию'
+
+    this.orderSelect.add(ascOption)
+    this.orderSelect.add(descOption)
+
+    this.sortButton = document.createElement('button')
+    this.sortButton.innerText = 'Сортировать'
+
+    this.sortSelectors.appendChild(this.fieldSelect)
+    this.sortSelectors.appendChild(this.orderSelect)
+    this.sortSelectors.appendChild(this.sortButton)
+  }
+
+  private createUserForm(){
+    this.form = document.createElement('div')
+    this.usernameInput = document.createElement('input')
+    this.usernameInput.placeholder = 'Введите имя пользователя'
+    this.ageInput = document.createElement('input')
+    this.ageInput.placeholder = 'Введите возраст'
+    this.createButton = document.createElement('button')
+    this.createButton.innerText = 'Создать'
+    this.form.appendChild(this.usernameInput)
+    this.form.appendChild(this.ageInput)
+    this.form.appendChild(this.createButton)
+  }
+
+  public mount() {
+    this.root.innerHTML = `<h1>Пользователи</h1>`
+    this.root.appendChild(this.sortSelectors)
+    this.root.appendChild(this.form)
+    this.root.appendChild(this.users)
+  }
+
 }

@@ -24,6 +24,11 @@ export class UsersModel {
 
   async fetchUsers(): Promise<User[]> {
     try {
+      await delay()
+      const data = await fetch('https://jsonplaceholder.typicode.com/users')      
+      const json = await data.json() as User[]
+      console.log(json);
+      this.users = json.map( user => ({...user, age: Number(user.id)}))
       return this.users
     } catch (e) {
       this.users = []
