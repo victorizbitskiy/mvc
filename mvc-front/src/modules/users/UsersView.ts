@@ -20,18 +20,17 @@ export class UserView {
   constructor(root: HTMLElement, controller: UsersController) {
     this.root = root
     this.controller = controller
-  
+
     this.createUserForm()
     this.createSortSelectors()
     this.createUsersList()
-
     this.bindListeners()
   }
 
   private onCreateClick = () => {
     try {
       const newUser = this.controller.handleCreate(this.usernameInput.value, Number(this.ageInput.value))
-      this.renderNewUser(newUser)      
+      this.renderNewUser(newUser)
     } catch (e) {
       this.showError((e as Error).message)
     }
@@ -42,7 +41,15 @@ export class UserView {
     this.renderUsers(newUsers)
   }
 
-  private bindListeners(){ 
+  private renderUsersList = () => {
+    const usersElement = this.controller.users.map(user => {
+      return this.getUserElement(user)
+    })
+
+    this.users.innerHTML = usersElement.join('')
+  }
+
+  private bindListeners() {
     this.createButton.addEventListener('click', this.onCreateClick)
     this.sortButton.addEventListener('click', this.onSortClick)
   }
@@ -51,7 +58,7 @@ export class UserView {
     alert(message)
   }
 
-  private getUserElement(user: User){
+  private getUserElement(user: User) {
     return `
       <div class="user">
         <h3>Username = ${user.username}</h3>
@@ -79,7 +86,7 @@ export class UserView {
     this.users = document.createElement('div')
   }
 
-  private createSortSelectors(){
+  private createSortSelectors() {
     this.sortSelectors = document.createElement('div')
 
     this.fieldSelect = document.createElement('select')
@@ -112,7 +119,7 @@ export class UserView {
     this.sortSelectors.appendChild(this.sortButton)
   }
 
-  private createUserForm(){
+  private createUserForm() {
     this.form = document.createElement('div')
     this.usernameInput = document.createElement('input')
     this.usernameInput.placeholder = 'Введите имя пользователя'
@@ -129,6 +136,7 @@ export class UserView {
     this.root.innerHTML = `<h1>Пользователи</h1>`
     this.root.appendChild(this.sortSelectors)
     this.root.appendChild(this.form)
+    this.renderUsersList()
     this.root.appendChild(this.users)
   }
 

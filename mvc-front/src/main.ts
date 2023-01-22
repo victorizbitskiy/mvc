@@ -10,7 +10,7 @@ import { UserView } from "./modules/users/UsersView"
 // counterView2.mount()
 
 const usersModel = new UsersModel()
-usersModel.fetchUsers()
+await usersModel.fetchUsers()
 const usersController = new UsersController(usersModel)
 const usersView = new UserView(document.getElementById('users')!, usersController)
 
